@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Myntra|Carts{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <!-- carts start here -->
+        <div class="col-md-9 p-3">
+            <div class="row">
+                {% for x in allcarts %}
+                <div class="col-md-3">
+                <div class="card" style="width: 16rem;">
+                    <img src="/media/{{x.productid.image}}" class="card-img-top" width="100px" height="200px" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">{{x.productid.productname}}</h5>
+                      <p class="card-text">{{x.productid.description}}</p>
+                      <p class="card-text">{{x.productid.category}}</p>
+                      <b class="card-text">Price: {{x.productid.price}}\-</b><br>
+                      <p>
+                        <strong>QTY:</strong>
+                        <a href="/updateqty/0/{{x.productid.productid}}"><button class="btn btn-danger">-</button></a>
+                        <input type="number" value="{{x.qty}}" style="width: 30px;">
+                        <a href="/updateqty/1/{{x.productid.productid}}"><button class="btn btn-success">+</button></a>
+                      </p>
+                      <a href="/removecart/{{x.productid.productid}}" class="btn btn-primary">Remove</a>
+                      <a href="#" class="btn btn-primary">Buy Now</a>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+                
+            </div>
+        </div>
+        <!-- carts ends here -->
+
+        <!-- total section start here -->
+        <div class="col-md-3">
+
+        </div>
+        <!-- total section ends here -->
+    </div>
+</div>
+
+{% endblock %}

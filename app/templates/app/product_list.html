@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Myntra|Home{% endblock %}
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <!--search side bar start here-->
+        <div class="col-md-2 p-3">
+            <div>
+                <h5>Search By Category</h5>
+                <hr>
+                <a href="#">By Cloths</a><br>
+                <a href="#">By Mobile</a><br>
+                <a href="#">By Shoes</a><br>
+                <a href="#">By Electronics</a><br>
+            </div>
+            <div>
+                <h5 class="mt-2">Search By Price Range</h5>
+                <hr>
+                <input class="form-control" type="number" name="min" placeholder="Min Price"><br>
+                <input class="form-control"  type="number" name="max" placeholder="Max Price"><br>
+                <input type="submit" class="btn btn-danger"  value="Submit">
+            </div>
+            <div>
+                <h5 class="mt-2">Sort By Price</h5>
+                <hr>
+                <a href="#">Low to High</a><br>
+                <a href="#">High to Low</a><br>
+            </div>
+        </div>
+        <!--search side bar ends here-->
+
+        <!--card starts here-->
+        <div class="col-md-9 p-3">
+        <div class="row " style="width: 100%">
+            {%for x in object_list %}
+            <div class="col-md-3 px-2">
+            <div class="card" style="width: 15rem;">
+                <img src="/media/{{x.image}}" class="card-img-top" width="100px" height="200px" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">{{x.productname}}</h5>
+                  <p class="card-text">{{x.despription}}</p>
+                  <a href="/ProductUpdate/{{x.pk}}" class="btn btn-primary">Edit</a>
+                  <a href="/ProductRemove/{{x.pk}}" class="btn btn-primary">Remove</a>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+        <!--card ends here-->
+    </div>
+</div>
+{% endblock %}

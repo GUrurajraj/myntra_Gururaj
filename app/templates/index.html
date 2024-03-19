@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}Myntra|Home{% endblock %}
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        {% if query %}
+        <center><h5>Search result for:strong>{{query}}</strong></h5></center>
+        <center><h2>{{errmsg}}</h2></center>
+        {% endif %}
+        <!--search side bar start here-->
+        <div class="col-md-2 p-3">
+            <div>
+                <h5>Search By Category</h5>
+                <hr>
+                <a href="{% url 'clothslist' %}">By Cloths</a><br>
+                <a href="/mobilelist">By Mobile</a><br>
+                <a href="/shoeslist">By Shoes</a><br>
+                <a href="/electronicslist">By Electronics</a><br>
+            </div>
+            <div>
+                <h5 class="mt-2">Search By Price Range</h5>
+                <hr>
+                <form method="post" action="/showpricerange/">
+                    {% csrf_token %}
+                <input class="form-control" type="number" name="min" placeholder="Min Price"><br>
+                <input class="form-control"  type="number" name="max" placeholder="Max Price"><br>
+                <input type="submit" class="btn btn-danger"  value="Submit">
+                </form>
+            </div>
+            <div>
+                <h5 class="mt-2">Sort By Price</h5>
+                <hr>
+                <a href="{% url 'sortingproduct' %}?sort=low_to_high">Low to High</a><br>
+                <a href="{% url 'sortingproduct' %}?sort=high_to_low">High to Low</a><br>
+            </div>
+        </div>
+        <!--search side bar ends here-->
+
+        <!--card starts here-->
+        <div class="col-md-9 p-3">
+            <div class="row">
+                {% for x in allproducts %}
+                <div class="col-md-3">
+                <div class="card" style="width: 16rem;">
+                    <img src="/media/{{x.image}}" class="card-img-top" width="100px" height="200px" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">{{x.productname}}</h5>
+                      <p class="card-text">{{x.description}}</p>
+                      <p class="card-text">{{x.category}}</p>
+                      <b class="card-text">Price: {{x.price}}\-</b><br>
+                      <a href="/addcart/{{x.productid}}" class="btn btn-primary">Add to Cart</a>
+                      <a href="#" class="btn btn-primary">Buy Now</a>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+                
+            </div>
+            </div>
+        <!--card ends here-->
+    </div>
+</div>
+{% endblock %}
